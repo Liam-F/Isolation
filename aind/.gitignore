@@ -10,6 +10,8 @@ __pycache__/
 # Otther files
 .DS_Store
 .directory
+isolation-*.zip
+isolation-*.json
 
 # C extensions
 *.so
