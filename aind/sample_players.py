@@ -7,6 +7,7 @@ own agent and example heuristic functions.
 """
 
 from random import randint
+from aind.game_agent import MinimaxPlayer
 
 
 def null_score(game, player):
@@ -260,6 +261,7 @@ if __name__ == "__main__":
 
     # create an isolation board (by default 7x7)
     player1 = RandomPlayer()
+    player1 = MinimaxPlayer()
     player2 = GreedyPlayer()
     game = Board(player1, player2)
 

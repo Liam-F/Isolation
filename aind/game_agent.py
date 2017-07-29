@@ -1,17 +1,29 @@
-"""Finish all TODO items in this file to complete the isolation project, then
-test your agent's strength against a set of known agents using tournament.py
-and include the results in your report.
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
 """
+Udacity: Finish all TODO items in this file to complete the isolation project,
+then test your agent's strength against a set of known agents using
+tournament.py and include the results in your report.
+
+@author: ucaiado
+Created on 07/29/2017
+"""
+
 import random
 
 
+'''
+Begin help functions
+'''
+
+
 class SearchTimeout(Exception):
-    """Subclass base exception for code clarity. """
+    ''' Subclass base exception for code clarity. '''
     pass
 
 
 def custom_score(game, player):
-    """Calculate the heuristic value of a game state from the point of view
+    ''' Calculate the heuristic value of a game state from the point of view
     of the given player.
 
     This should be the best heuristic function for your project submission.
@@ -33,13 +45,13 @@ def custom_score(game, player):
     -------
     float
         The heuristic value of the current game state to the specified player.
-    """
+    '''
     # TODO: finish this function!
     raise NotImplementedError
 
 
 def custom_score_2(game, player):
-    """Calculate the heuristic value of a game state from the point of view
+    ''' Calculate the heuristic value of a game state from the point of view
     of the given player.
 
     Note: this function should be called from within a Player instance as
@@ -59,13 +71,13 @@ def custom_score_2(game, player):
     -------
     float
         The heuristic value of the current game state to the specified player.
-    """
+    '''
     # TODO: finish this function!
     raise NotImplementedError
 
 
 def custom_score_3(game, player):
-    """Calculate the heuristic value of a game state from the point of view
+    ''' Calculate the heuristic value of a game state from the point of view
     of the given player.
 
     Note: this function should be called from within a Player instance as
@@ -85,13 +97,141 @@ def custom_score_3(game, player):
     -------
     float
         The heuristic value of the current game state to the specified player.
-    """
+    '''
     # TODO: finish this function!
     raise NotImplementedError
 
 
+def null_score(game, player):
+    """This heuristic presumes no knowledge for non-terminal states, and
+    returns the same uninformative value for all other states.
+
+    Parameters
+    ----------
+    game : `isolation.Board`
+        An instance of `isolation.Board` encoding the current state of the
+        game (e.g., player locations and blocked cells).
+
+    player : hashable
+        One of the objects registered by the game object as a valid player.
+        (i.e., `player` should be either game.__player_1__ or
+        game.__player_2__).
+
+    Returns
+    ----------
+    float
+        The heuristic value of the current game state.
+    """
+
+    if game.is_loser(player):
+        return float("-inf")
+
+    if game.is_winner(player):
+        return float("inf")
+
+    return 0.
+
+
+def open_move_score(game, player):
+    """The basic evaluation function described in lecture that outputs a score
+    equal to the number of moves open for your computer player on the board.
+
+    Parameters
+    ----------
+    game : `isolation.Board`
+        An instance of `isolation.Board` encoding the current state of the
+        game (e.g., player locations and blocked cells).
+
+    player : hashable
+        One of the objects registered by the game object as a valid player.
+        (i.e., `player` should be either game.__player_1__ or
+        game.__player_2__).
+
+    Returns
+    ----------
+    float
+        The heuristic value of the current game state
+    """
+    if game.is_loser(player):
+        return float("-inf")
+
+    if game.is_winner(player):
+        return float("inf")
+
+    return float(len(game.get_legal_moves(player)))
+
+
+def improved_score(game, player):
+    """The "Improved" evaluation function discussed in lecture that outputs a
+    score equal to the difference in the number of moves available to the
+    two players.
+
+    Parameters
+    ----------
+    game : `isolation.Board`
+        An instance of `isolation.Board` encoding the current state of the
+        game (e.g., player locations and blocked cells).
+
+    player : hashable
+        One of the objects registered by the game object as a valid player.
+        (i.e., `player` should be either game.__player_1__ or
+        game.__player_2__).
+
+    Returns
+    ----------
+    float
+        The heuristic value of the current game state
+    """
+    if game.is_loser(player):
+        return float("-inf")
+
+    if game.is_winner(player):
+        return float("inf")
+
+    own_moves = len(game.get_legal_moves(player))
+    opp_moves = len(game.get_legal_moves(game.get_opponent(player)))
+    return float(own_moves - opp_moves)
+
+
+def center_score(game, player):
+    """Outputs a score equal to square of the distance from the center of the
+    board to the position of the player.
+
+    This heuristic is only used by the autograder for testing.
+
+    Parameters
+    ----------
+    game : `isolation.Board`
+        An instance of `isolation.Board` encoding the current state of the
+        game (e.g., player locations and blocked cells).
+
+    player : hashable
+        One of the objects registered by the game object as a valid player.
+        (i.e., `player` should be either game.__player_1__ or
+        game.__player_2__).
+
+    Returns
+    ----------
+    float
+        The heuristic value of the current game state
+    """
+    if game.is_loser(player):
+        return float("-inf")
+
+    if game.is_winner(player):
+        return float("inf")
+
+    w, h = game.width / 2., game.height / 2.
+    y, x = game.get_player_location(player)
+    return float((h - y)**2 + (w - x)**2)
+
+'''
+End help functions
+'''
+
+
 class IsolationPlayer:
-    """Base class for minimax and alphabeta agents -- this class is never
+    ''' Base class for minimax and alphabeta agents -- this class is never
     constructed or tested directly.
 
     ********************  DO NOT MODIFY THIS CLASS  ********************
@@ -111,7 +251,7 @@ class IsolationPlayer:
         Time remaining (in milliseconds) when search is aborted. Should be a
         positive value large enough to allow the function to return before the
         timer expires.
-    """
+    '''
     def __init__(self, search_depth=3, score_fn=custom_score, timeout=10.):
         self.search_depth = search_depth
         self.score = score_fn
@@ -120,13 +260,13 @@ class IsolationPlayer:
 
 
 class MinimaxPlayer(IsolationPlayer):
-    """Game-playing agent that chooses a move using depth-limited minimax
+    ''' Game-playing agent that chooses a move using depth-limited minimax
     search. You must finish and test this player to make sure it properly uses
     minimax to return a good move before the search time limit expires.
-    """
+    '''
 
     def get_move(self, game, time_left):
-        """Search for the best move from the available legal moves and return a
+        ''' Search for the best move from the available legal moves and return a
         result before the time limit expires.
 
         **************  YOU DO NOT NEED TO MODIFY THIS FUNCTION  *************
@@ -152,7 +292,7 @@ class MinimaxPlayer(IsolationPlayer):
         (int, int)
             Board coordinates corresponding to a legal move; may return
             (-1, -1) if there are no available legal moves.
-        """
+        '''
         self.time_left = time_left
 
         # Initialize the best move so that this function returns something
@@ -171,7 +311,7 @@ class MinimaxPlayer(IsolationPlayer):
         return best_move
 
     def minimax(self, game, depth):
-        """Implement depth-limited minimax search algorithm as described in
+        ''' Implement depth-limited minimax search algorithm as described in
         the lectures.
 
         This should be a modified version of MINIMAX-DECISION in the AIMA text.
@@ -208,22 +348,95 @@ class MinimaxPlayer(IsolationPlayer):
                 pseudocode) then you must copy the timer check into the top of
                 each helper function or else your agent will timeout during
                 testing.
-        """
+        '''
         if self.time_left() < self.TIMER_THRESHOLD:
             raise SearchTimeout()
 
-        # TODO: finish this function!
-        raise NotImplementedError
+        # The functions MAX-VALUE and MIN-VALUE go through the whole game tree,
+        # all the way to the leaves, to determine the backed-up value of state
+        # so, we just need to call one of the functions
+        best_score = float("-inf")
+        best_move = (-1, -1)
+        for idx, m in enumerate(game.get_legal_moves(game.active_player)):
+            v = self.min_value(game.forecast_move(m), depth)
+            if v > best_score:
+                best_score = v
+                best_move = m
+        return best_move
+
+    def score(self, game, player):
+        '''
+        Calculate the heuristic value of a game state from the point of player
+        '''
+        return open_move_score(game, player)
+
+    def terminal_test(self, game, depth):
+        '''
+        Return True if the game is over for the active player
+        and False otherwise.
+        '''
+        # check if there is still time left
+        if self.time_left() < self.TIMER_THRESHOLD:
+            raise SearchTimeout()
+        # control the depth.
+        if depth < 2:
+            # Depth one means terminal state
+            # print('depth: ', depth)
+            return True
+        # check if there are still legal moves by Assumption 1
+        return not bool(game.get_legal_moves(game.active_player))
+
+    def min_value(self, game, depth):
+        '''
+        Return the value for a win (+1) if the game is over,
+        otherwise return the minimum value over all legal child
+        nodes.
+        '''
+        # check if there is still time left
+        if self.time_left() < self.TIMER_THRESHOLD:
+            raise SearchTimeout()
+        # check
+        if self.terminal_test(game, depth):
+            # return 1
+            return self.score(game, self)  # by Assumption 2
+        v = float('inf')
+        for m in game.get_legal_moves(game.active_player):
+            # implement the proposed function in AIMA, pg 166:
+            # \nu \leftarrow MAX(\nu, MIN-VALUE(RESULT(s, a)))
+            # also, decrieses he current depth
+            v = min(v, self.max_value(game.forecast_move(m), depth - 1))
+        return v
+
+    def max_value(self, game, depth):
+        '''
+        Return the value for a loss (-1) if the game is over,
+        otherwise return the maximum value over all legal child
+        nodes.
+        '''
+        # check if there is still time left
+        if self.time_left() < self.TIMER_THRESHOLD:
+            raise SearchTimeout()
+        # check if the game is terminated. Pass the current depth to test
+        if self.terminal_test(game, depth):
+            # return -1
+            return self.score(game, self)  # by assumption 2
+        v = float('-inf')
+        for m in game.get_legal_moves(game.active_player):
+            # implement the proposed function in AIMA, pg 166:
+            # \nu \leftarrow MIN(\nu, MAX-VALUE(RESULT(s, a)))
+            # also, decrieses he current depth
+            v = max(v, self.min_value(game.forecast_move(m), depth - 1))
+        return v
 
 
 class AlphaBetaPlayer(IsolationPlayer):
-    """Game-playing agent that chooses a move using iterative deepening minimax
+    ''' Game-playing agent that chooses a move using iterative deepening minimax
     search with alpha-beta pruning. You must finish and test this player to
     make sure it returns a good move before the search time limit expires.
-    """
+    '''
 
     def get_move(self, game, time_left):
-        """Search for the best move from the available legal moves and return a
+        ''' Search for the best move from the available legal moves and return a
         result before the time limit expires.
 
         Modify the get_move() method from the MinimaxPlayer class to implement
@@ -251,14 +464,14 @@ class AlphaBetaPlayer(IsolationPlayer):
         (int, int)
             Board coordinates corresponding to a legal move; may return
             (-1, -1) if there are no available legal moves.
-        """
+        '''
         self.time_left = time_left
 
         # TODO: finish this function!
         raise NotImplementedError
 
     def alphabeta(self, game, depth, alpha=float("-inf"), beta=float("inf")):
-        """Implement depth-limited minimax search with alpha-beta pruning as
+        ''' Implement depth-limited minimax search with alpha-beta pruning as
         described in the lectures.
 
         This should be a modified version of ALPHA-BETA-SEARCH in the AIMA text
@@ -301,9 +514,18 @@ class AlphaBetaPlayer(IsolationPlayer):
                 pseudocode) then you must copy the timer check into the top of
                 each helper function or else your agent will timeout during
                 testing.
-        """
+        '''
         if self.time_left() < self.TIMER_THRESHOLD:
             raise SearchTimeout()
 
         # TODO: finish this function!
-        raise NotImplementedError
+
+        best_score = float("-inf")
+        best_move = (-1, -1)
+        return best_move
+
+    def score(self, game, player):
+        '''
+        Calculate the heuristic value of a game state from the point of player
+        '''
+        return open_move_score(game, player)
