@@ -475,15 +475,20 @@ class AlphaBetaPlayer(IsolationPlayer):
         try:
             # The try/except block will automatically catch the exception
             # raised when the timer is about to expire.
-            return self.alphabeta(game, self.search_depth)
-
+            # implement interative-deepening describeb in AIMA, pg. 89
+            # in order to control the loop, I choose the first depth to be 1
+            # for depth = 0 to \inf do
+            for depth in range(1, 10**6):
+                # result \leftarrow DEPTH-LIMITED-SEARCH(problem, depth)
+                best_move = self.alphabeta(game, depth)
+                # It is implement in various part of the code
         except SearchTimeout:
             pass  # Handle any actions required after timeout as needed
-
         # Return the best move from the last completed search iteration
+        # if result != curoff then return result
         return best_move
 
-    def alphabeta(self, game, depth, alpha=float("-inf"), beta=float("inf")):
+    def alphabeta(self, game, depth, alpha=float('-inf'), beta=float('inf')):
         ''' Implement depth-limited minimax search with alpha-beta pruning as
         described in the lectures.
 
@@ -532,9 +537,14 @@ class AlphaBetaPlayer(IsolationPlayer):
             raise SearchTimeout()
 
         # TODO: finish this function!
-
-        best_score = float("-inf")
+        best_score = float('-inf')
         best_move = (-1, -1)
+        for idx, m in enumerate(game.get_legal_moves(game.active_player)):
+            v = self.min_value(game.forecast_move(m), alpha, beta, depth-1)
+            if v > best_score:
+                alpha = v
+                best_score = v
+                best_move = m
         return best_move
 
     def score(self, game, player):
@@ -542,3 +552,72 @@ class AlphaBetaPlayer(IsolationPlayer):
         Calculate the heuristic value of a game state from the point of player
         '''
         return open_move_score(game, player)
+
+    def cutoff_test(self, game, depth):
+        '''
+        Return True if the game is over for the active player
+        and False otherwise. Also perform the Cutoff-test described in
+        AIMA, ps 173
+        '''
+        # check if there is still time left
+        if self.time_left() < self.TIMER_THRESHOLD:
+            raise SearchTimeout()
+        # control the depth.
+        if depth < 1:
+            # Depth one means terminal state
+            # print('depth: ', depth)
+            return True
+        # check if there are still legal moves by Assumption 1
+        return not bool(game.get_legal_moves(game.active_player))
+
+    def min_value(self, game, alpha, beta, depth):
+        '''
+        Return the value for a win (+1) if the game is over,
+        otherwise return the minimum value over all legal child
+        nodes.
+
+        implement the proposed function in AIMA, pg 170
+        '''
+        # check if there is still time left
+        if self.time_left() < self.TIMER_THRESHOLD:
+            raise SearchTimeout()
+        # if TERMINAL-TEST(state) then return UTILITY(state)
+        if self.cutoff_test(game, depth):
+            return self.score(game, self)
+        v = float('inf')
+        # for each a in ACTIONS(state) do
+        for m in game.get_legal_moves(game.active_player):
+            # \nu \leftarrow MIN(\nu, MAX-VALUE(RESULT(s, a), \alpha, \beta))
+            v = min(v, self.max_value(game.forecast_move(m), alpha, beta,
+                                      depth - 1))
+            # if \nu \leq \alpha then return v
+            if v <= alpha:
+                return v
+            # \beta \leftarrow MIN(\beta, v)
+            beta = min(beta, v)
+        return v
+
+    def max_value(self, game, alpha, beta, depth):
+        '''
+        Return the value for a loss (-1) if the game is over,
+        otherwise return the maximum value over all legal child
+        nodes.
+
+        implement the proposed function in AIMA, pg 170
+        '''
+        # check if there is still time left
+        if self.time_left() < self.TIMER_THRESHOLD:
+            raise SearchTimeout()
+        # if TERMINAL-TEST(state) then return UTILITY(state)
+        if self.cutoff_test(game, depth):
+            return self.score(game, self)
+        v = float('-inf')
+        # for each a in ACTIONS(state) do
+        for m in game.get_legal_moves(game.active_player):
+            # \nu \leftarrow MIN(\nu, MAX-VALUE(RESULT(s, a)))
+            v = max(v, self.min_value(game.forecast_move(m), alpha, beta,
+                                      depth - 1))
+            if v >= beta:
+                return v
+            alpha = max(alpha, v)
+        return v
