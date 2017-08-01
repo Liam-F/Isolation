@@ -47,7 +47,15 @@ def custom_score(game, player):
         The heuristic value of the current game state to the specified player.
     '''
     # TODO: finish this function!
-    raise NotImplementedError
+    if game.is_loser(player):
+        return float("-inf")
+
+    if game.is_winner(player):
+        return float("inf")
+    own_moves = len(game.get_legal_moves(player))
+    opp_moves = len(game.get_legal_moves(game.get_opponent(player)))
+    f_in_center = (center_score(game, player) == 0) * 10.
+    return float(own_moves - 3. * opp_moves + f_in_center)
 
 
 def custom_score_2(game, player):
@@ -73,12 +81,20 @@ def custom_score_2(game, player):
         The heuristic value of the current game state to the specified player.
     '''
     # TODO: finish this function!
-    raise NotImplementedError
+    if game.is_loser(player):
+        return float("-inf")
+
+    if game.is_winner(player):
+        return float("inf")
+    own_moves = len(game.get_legal_moves(player))
+    opp_moves = len(game.get_legal_moves(game.get_opponent(player)))
+    return float(own_moves - 2 * opp_moves)
 
 
 def custom_score_3(game, player):
     ''' Calculate the heuristic value of a game state from the point of view
-    of the given player.
+    of the given player. Reward the agent by the number of open moves and give
+    and aditional reward by selecting the center of the board
 
     Note: this function should be called from within a Player instance as
     `self.score()` -- you should not need to call this function directly.
@@ -99,7 +115,15 @@ def custom_score_3(game, player):
         The heuristic value of the current game state to the specified player.
     '''
     # TODO: finish this function!
-    raise NotImplementedError
+    if game.is_loser(player):
+        return float("-inf")
+
+    if game.is_winner(player):
+        return float("inf")
+    f_in_center = (center_score(game, player) == 0) * 10.
+    f_my_moves = open_move_score(game, player)
+
+    return f_my_moves + f_in_center
 
 
 def null_score(game, player):
@@ -252,7 +276,7 @@ class IsolationPlayer:
         positive value large enough to allow the function to return before the
         timer expires.
     '''
-    def __init__(self, search_depth=3, score_fn=custom_score, timeout=10.):
+    def __init__(self, search_depth=3, score_fn=custom_score, timeout=15.):
         self.search_depth = search_depth
         self.score = score_fn
         self.time_left = None
@@ -297,7 +321,10 @@ class MinimaxPlayer(IsolationPlayer):
 
         # Initialize the best move so that this function returns something
         # in case the search fails due to timeout
-        best_move = (-1, -1)
+        try:
+            best_move = (game.get_legal_moves(game.active_player))[0]
+        except IndexError:
+            best_move = (-1, -1)
 
         try:
             # The try/except block will automatically catch the exception
@@ -355,9 +382,13 @@ class MinimaxPlayer(IsolationPlayer):
         # The functions MAX-VALUE and MIN-VALUE go through the whole game tree,
         # all the way to the leaves, to determine the backed-up value of state
         # so, we just need to call one of the functions
-        best_score = float("-inf")
-        best_move = (-1, -1)
-        for idx, m in enumerate(game.get_legal_moves(game.active_player)):
+        best_score = float('-inf')
+        l_legal_moves = game.get_legal_moves(game.active_player)
+        try:
+            best_move = l_legal_moves[0]
+        except IndexError:
+            return (-1, -1)
+        for idx, m in enumerate(l_legal_moves):
             v = self.min_value(game.forecast_move(m), depth)
             if v > best_score:
                 best_score = v
@@ -368,7 +399,7 @@ class MinimaxPlayer(IsolationPlayer):
         '''
         Calculate the heuristic value of a game state from the point of player
         '''
-        return open_move_score(game, player)
+        return custom_score_3(game, player)
 
     def terminal_test(self, game, depth):
         '''
@@ -470,8 +501,10 @@ class AlphaBetaPlayer(IsolationPlayer):
         # TODO: finish this function!
         # Initialize the best move so that this function returns something
         # in case the search fails due to timeout
-        best_move = (-1, -1)
-
+        try:
+            best_move = (game.get_legal_moves(game.active_player))[0]
+        except IndexError:
+            best_move = (-1, -1)
         try:
             # The try/except block will automatically catch the exception
             # raised when the timer is about to expire.
@@ -538,7 +571,11 @@ class AlphaBetaPlayer(IsolationPlayer):
 
         # TODO: finish this function!
         best_score = float('-inf')
-        best_move = (-1, -1)
+        l_legal_moves = game.get_legal_moves(game.active_player)
+        try:
+            best_move = l_legal_moves[0]
+        except IndexError:
+            return (-1, -1)
         for idx, m in enumerate(game.get_legal_moves(game.active_player)):
             v = self.min_value(game.forecast_move(m), alpha, beta, depth-1)
             if v > best_score:
@@ -551,7 +588,7 @@ class AlphaBetaPlayer(IsolationPlayer):
         '''
         Calculate the heuristic value of a game state from the point of player
         '''
-        return open_move_score(game, player)
+        return custom_score_3(game, player)
 
     def cutoff_test(self, game, depth):
         '''

@@ -7,7 +7,10 @@ own agent and example heuristic functions.
 """
 
 from random import randint
-from aind.game_agent import MinimaxPlayer
+try:
+    from aind.game_agent import MinimaxPlayer
+except:
+    from game_agent import MinimaxPlayer
 
 
 def null_score(game, player):
