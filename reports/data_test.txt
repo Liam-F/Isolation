@@ -1,0 +1,185 @@
+This script evaluates the performance of the custom_score evaluation
+function against a baseline agent using alpha-beta search and iterative
+deepening (ID) called `AB_Improved`. The three `AB_Custom` agents use
+ID and alpha-beta search with the custom_score functions defined in
+game_agent.py.
+
+                        *************************                         
+                             Playing Matches                              
+                        *************************                         
+
+===============
+
+
+ Match #   Opponent    AB_Improved   AB_Custom   AB_Custom_2  AB_Custom_3 
+                        Won | Lost   Won | Lost   Won | Lost   Won | Lost 
+    1       Random      19  |   1    19  |   1    19  |   1    16  |   4  
+    2       MM_Open     12  |   8    14  |   6    14  |   6    13  |   7  
+    3      MM_Center    20  |   0    17  |   3    18  |   2    13  |   7  
+    4     MM_Improved   16  |   4    16  |   4    12  |   8    15  |   5  
+    5       AB_Open     10  |  10     8  |  12    13  |   7    11  |   9  
+    6      AB_Center    16  |   4    13  |   7    12  |   8     9  |  11  
+    7     AB_Improved   12  |   8     7  |  13    10  |  10     9  |  11  
+--------------------------------------------------------------------------
+           Win Rate:      75.0%        67.1%        70.0%        61.4%    
+
+There were 1.0 timeouts during the tournament -- make sure your agent handles search timeout correctly, and consider increasing the timeout margin for your agent.
+
+
+===============
+
+
+ Match #   Opponent    AB_Improved   AB_Custom   AB_Custom_2  AB_Custom_3 
+                        Won | Lost   Won | Lost   Won | Lost   Won | Lost 
+    1       Random      18  |   2    19  |   1    19  |   1    18  |   2  
+    2       MM_Open     18  |   2    16  |   4    17  |   3    14  |   6  
+    3      MM_Center    19  |   1    19  |   1    18  |   2    17  |   3  
+    4     MM_Improved   16  |   4    13  |   7    14  |   6    13  |   7  
+    5       AB_Open     11  |   9    13  |   7     9  |  11    11  |   9  
+    6      AB_Center    10  |  10    11  |   9    14  |   6    14  |   6  
+    7     AB_Improved    8  |  12    12  |   8     9  |  11    10  |  10  
+--------------------------------------------------------------------------
+           Win Rate:      71.4%        73.6%        71.4%        69.3%    
+
+There were 2.0 timeouts during the tournament -- make sure your agent handles search timeout correctly, and consider increasing the timeout margin for your agent.
+
+
+===============
+
+
+ Match #   Opponent    AB_Improved   AB_Custom   AB_Custom_2  AB_Custom_3 
+                        Won | Lost   Won | Lost   Won | Lost   Won | Lost 
+    1       Random      19  |   1    20  |   0    18  |   2    20  |   0  
+    2       MM_Open     15  |   5    14  |   6    16  |   4    12  |   8  
+    3      MM_Center    20  |   0    19  |   1    19  |   1    15  |   5  
+    4     MM_Improved   14  |   6    16  |   4    18  |   2    14  |   6  
+    5       AB_Open      9  |  11    10  |  10     9  |  11     8  |  12  
+    6      AB_Center    13  |   7    10  |  10    10  |  10    12  |   8  
+    7     AB_Improved    9  |  11    10  |  10    12  |   8    10  |  10  
+--------------------------------------------------------------------------
+           Win Rate:      70.7%        70.7%        72.9%        65.0%    
+
+There were 17.0 timeouts during the tournament -- make sure your agent handles search timeout correctly, and consider increasing the timeout margin for your agent.
+
+
+===============
+
+
+ Match #   Opponent    AB_Improved   AB_Custom   AB_Custom_2  AB_Custom_3 
+                        Won | Lost   Won | Lost   Won | Lost   Won | Lost 
+    1       Random      19  |   1    17  |   3    17  |   3    20  |   0  
+    2       MM_Open     16  |   4    13  |   7    12  |   8    15  |   5  
+    3      MM_Center    17  |   3    20  |   0    17  |   3    16  |   4  
+    4     MM_Improved   16  |   4    16  |   4    16  |   4    14  |   6  
+    5       AB_Open     10  |  10    13  |   7    11  |   9    10  |  10  
+    6      AB_Center    11  |   9    11  |   9    12  |   8    11  |   9  
+    7     AB_Improved    8  |  12     9  |  11     8  |  12    11  |   9  
+--------------------------------------------------------------------------
+           Win Rate:      69.3%        70.7%        66.4%        69.3%    
+
+There were 20.0 timeouts during the tournament -- make sure your agent handles search timeout correctly, and consider increasing the timeout margin for your agent.
+
+
+===============
+
+
+ Match #   Opponent    AB_Improved   AB_Custom   AB_Custom_2  AB_Custom_3 
+                        Won | Lost   Won | Lost   Won | Lost   Won | Lost 
+    1       Random      17  |   3    19  |   1    16  |   4    17  |   3  
+    2       MM_Open     16  |   4    18  |   2    15  |   5    17  |   3  
+    3      MM_Center    16  |   4    19  |   1    19  |   1    18  |   2  
+    4     MM_Improved   16  |   4    15  |   5    13  |   7    14  |   6  
+    5       AB_Open      9  |  11    10  |  10    11  |   9    10  |  10  
+    6      AB_Center    11  |   9    11  |   9    10  |  10    11  |   9  
+    7     AB_Improved    8  |  12    11  |   9     8  |  12     8  |  12  
+--------------------------------------------------------------------------
+           Win Rate:      66.4%        73.6%        65.7%        67.9%    
+
+There were 1.0 timeouts during the tournament -- make sure your agent handles search timeout correctly, and consider increasing the timeout margin for your agent.
+
+
+===============
+
+
+ Match #   Opponent    AB_Improved   AB_Custom   AB_Custom_2  AB_Custom_3 
+                        Won | Lost   Won | Lost   Won | Lost   Won | Lost 
+    1       Random      19  |   1    20  |   0    18  |   2    18  |   2  
+    2       MM_Open     15  |   5    16  |   4    13  |   7    12  |   8  
+    3      MM_Center    15  |   5    18  |   2    18  |   2    15  |   5  
+    4     MM_Improved   14  |   6    13  |   7    15  |   5    16  |   4  
+    5       AB_Open      9  |  11    12  |   8    12  |   8    10  |  10  
+    6      AB_Center    10  |  10    13  |   7    10  |  10     8  |  12  
+    7     AB_Improved    8  |  12     9  |  11    11  |   9     9  |  11  
+--------------------------------------------------------------------------
+           Win Rate:      64.3%        72.1%        69.3%        62.9%    
+
+===============
+
+
+ Match #   Opponent    AB_Improved   AB_Custom   AB_Custom_2  AB_Custom_3 
+                        Won | Lost   Won | Lost   Won | Lost   Won | Lost 
+    1       Random      20  |   0    19  |   1    19  |   1    20  |   0  
+    2       MM_Open     12  |   8    15  |   5    15  |   5    15  |   5  
+    3      MM_Center    17  |   3    18  |   2    19  |   1    14  |   6  
+    4     MM_Improved   16  |   4    13  |   7    12  |   8    10  |  10  
+    5       AB_Open     11  |   9    10  |  10    10  |  10     9  |  11  
+    6      AB_Center     9  |  11    11  |   9    10  |  10    12  |   8  
+    7     AB_Improved   10  |  10    11  |   9    11  |   9     8  |  12  
+--------------------------------------------------------------------------
+           Win Rate:      67.9%        69.3%        68.6%        62.9%    
+
+There were 9.0 timeouts during the tournament -- make sure your agent handles search timeout correctly, and consider increasing the timeout margin for your agent.
+
+
+===============
+
+
+ Match #   Opponent    AB_Improved   AB_Custom   AB_Custom_2  AB_Custom_3 
+                        Won | Lost   Won | Lost   Won | Lost   Won | Lost 
+    1       Random      19  |   1    16  |   4    18  |   2    18  |   2  
+    2       MM_Open     15  |   5    16  |   4    16  |   4    18  |   2  
+    3      MM_Center    19  |   1    17  |   3    20  |   0    17  |   3  
+    4     MM_Improved   14  |   6    14  |   6    15  |   5    15  |   5  
+    5       AB_Open     12  |   8     9  |  11    10  |  10    10  |  10  
+    6      AB_Center    11  |   9    11  |   9    12  |   8    10  |  10  
+    7     AB_Improved    9  |  11     9  |  11     9  |  11     7  |  13  
+--------------------------------------------------------------------------
+           Win Rate:      70.7%        65.7%        71.4%        67.9%    
+
+There were 5.0 timeouts during the tournament -- make sure your agent handles search timeout correctly, and consider increasing the timeout margin for your agent.
+
+
+===============
+
+
+ Match #   Opponent    AB_Improved   AB_Custom   AB_Custom_2  AB_Custom_3 
+                        Won | Lost   Won | Lost   Won | Lost   Won | Lost 
+    1       Random      19  |   1    19  |   1    20  |   0    17  |   3  
+    2       MM_Open     15  |   5    17  |   3    15  |   5    18  |   2  
+    3      MM_Center    18  |   2    16  |   4    16  |   4    16  |   4  
+    4     MM_Improved   14  |   6    12  |   8    16  |   4    12  |   8  
+    5       AB_Open     11  |   9    10  |  10    10  |  10    10  |  10  
+    6      AB_Center    13  |   7    14  |   6    11  |   9    11  |   9  
+    7     AB_Improved    8  |  12    12  |   8     9  |  11     7  |  13  
+--------------------------------------------------------------------------
+           Win Rate:      70.0%        71.4%        69.3%        65.0%    
+
+There were 5.0 timeouts during the tournament -- make sure your agent handles search timeout correctly, and consider increasing the timeout margin for your agent.
+
+
+===============
+
+
+ Match #   Opponent    AB_Improved   AB_Custom   AB_Custom_2  AB_Custom_3 
+                        Won | Lost   Won | Lost   Won | Lost   Won | Lost 
+    1       Random      19  |   1    19  |   1    20  |   0    20  |   0  
+    2       MM_Open     15  |   5    12  |   8    14  |   6    14  |   6  
+    3      MM_Center    17  |   3    19  |   1    17  |   3    12  |   8  
+    4     MM_Improved   15  |   5    15  |   5    15  |   5    15  |   5  
+    5       AB_Open     11  |   9    10  |  10    14  |   6    11  |   9  
+    6      AB_Center    12  |   8    15  |   5    13  |   7    10  |  10  
+    7     AB_Improved    8  |  12    12  |   8    10  |  10     8  |  12  
+--------------------------------------------------------------------------
+           Win Rate:      69.3%        72.9%        73.6%        64.3%    
+
+There were 3.0 timeouts during the tournament -- make sure your agent handles search timeout correctly, and consider increasing the timeout margin for your agent.

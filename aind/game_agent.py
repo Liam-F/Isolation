@@ -48,14 +48,14 @@ def custom_score(game, player):
     '''
     # TODO: finish this function!
     if game.is_loser(player):
-        return float("-inf")
+        return float('-inf')
 
     if game.is_winner(player):
-        return float("inf")
+        return float('inf')
     own_moves = len(game.get_legal_moves(player))
     opp_moves = len(game.get_legal_moves(game.get_opponent(player)))
     f_in_center = (center_score(game, player) == 0) * 10.
-    return float(own_moves - 3. * opp_moves + f_in_center)
+    return float(own_moves - 2. * opp_moves + f_in_center)
 
 
 def custom_score_2(game, player):
@@ -82,10 +82,10 @@ def custom_score_2(game, player):
     '''
     # TODO: finish this function!
     if game.is_loser(player):
-        return float("-inf")
+        return float('-inf')
 
     if game.is_winner(player):
-        return float("inf")
+        return float('inf')
     own_moves = len(game.get_legal_moves(player))
     opp_moves = len(game.get_legal_moves(game.get_opponent(player)))
     return float(own_moves - 2 * opp_moves)
@@ -116,10 +116,10 @@ def custom_score_3(game, player):
     '''
     # TODO: finish this function!
     if game.is_loser(player):
-        return float("-inf")
+        return float('-inf')
 
     if game.is_winner(player):
-        return float("inf")
+        return float('inf')
     f_in_center = (center_score(game, player) == 0) * 10.
     f_my_moves = open_move_score(game, player)
 
@@ -148,10 +148,10 @@ def null_score(game, player):
     """
 
     if game.is_loser(player):
-        return float("-inf")
+        return float('-inf')
 
     if game.is_winner(player):
-        return float("inf")
+        return float('inf')
 
     return 0.
 
@@ -177,10 +177,10 @@ def open_move_score(game, player):
         The heuristic value of the current game state
     """
     if game.is_loser(player):
-        return float("-inf")
+        return float('-inf')
 
     if game.is_winner(player):
-        return float("inf")
+        return float('inf')
 
     return float(len(game.get_legal_moves(player)))
 
@@ -207,10 +207,10 @@ def improved_score(game, player):
         The heuristic value of the current game state
     """
     if game.is_loser(player):
-        return float("-inf")
+        return float('-inf')
 
     if game.is_winner(player):
-        return float("inf")
+        return float('inf')
 
     own_moves = len(game.get_legal_moves(player))
     opp_moves = len(game.get_legal_moves(game.get_opponent(player)))
@@ -240,10 +240,10 @@ def center_score(game, player):
         The heuristic value of the current game state
     """
     if game.is_loser(player):
-        return float("-inf")
+        return float('-inf')
 
     if game.is_winner(player):
-        return float("inf")
+        return float('inf')
 
     w, h = game.width / 2., game.height / 2.
     y, x = game.get_player_location(player)
