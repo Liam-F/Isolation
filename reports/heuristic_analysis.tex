@@ -69,11 +69,15 @@
 
 
 %---------------- start of document body------------------
-Bla bla bla Bla bla bla Bla bla bla Bla bla bla Bla bla bla Bla bla bla Bla bla bla Bla bla bla Bla bla bla Bla bla blaBla bla bla Bla bla bla Bla bla bla Bla bla bla.
 
-Bla bla bla Bla bla bla Bla bla bla Bla bla bla Bla bla bla Bla bla bla Bla bla bla Bla bla bla Bla bla bla Bla bla blaBla bla bla Bla bla bla Bla bla bla Bla bla bla
+As explained by \cite{Udacity2017}, in this project we had to develop an adversarial search agent to play the game "Isolation".  Isolation is a deterministic, two-player game of perfect information in which the players alternate turns moving a single piece from one cell to another on a board.  Whenever either player occupies a cell, that cell becomes blocked for the remainder of the game.  The first player with no remaining legal moves loses, and the opponent is declared the winner.
 
-Bla bla bla Bla bla bla Bla bla bla Bla bla bla Bla bla bla Bla bla bla Bla bla bla Bla bla bla Bla bla bla Bla bla blaBla bla bla Bla bla bla Bla bla bla Bla bla bla \cite{russelartificial}
+
+According to \cite{russelartificial}, games like this one have been engaging many AI researchers due its abstract nature. The state of a game is easy to represent, and agents are usually restricted to a small number of actions whose outcomes are defined by precise rules. However, those games are often too hard to solve by simple search. For instance, chess has a search tree with $35^{100}$ nodes.
+
+To complete this project, I implemented two strategies: minimax algorithm and alpha-beta prunning. As explained by \cite{russelartificial}, the first one performs a complete depth-first explporatiom of the game tree and its time cost in real games is impractical.
+
+explains that heuristic evaluation functions allow us to approximate the true utility of a state without doing a complete search.
 
 
 
