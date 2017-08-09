@@ -10,6 +10,14 @@ __pycache__/
 # C extensions
 *.so
 
+# TEX stuff
+*.aux
+*.out
+*.blg
+*.log
+*.bbl
+
+
 # Distribution / packaging
 .Python
 env/

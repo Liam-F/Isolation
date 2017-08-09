@@ -26,7 +26,7 @@ from sample_players import (RandomPlayer, open_move_score,
 from game_agent import (MinimaxPlayer, AlphaBetaPlayer, custom_score,
                         custom_score_2, custom_score_3)
 
-NUM_MATCHES = 5  # number of matches against each opponent
+NUM_MATCHES = 10  # number of matches against each opponent
 TIME_LIMIT = 150  # number of milliseconds before timeout
 
 DESCRIPTION = """
@@ -153,7 +153,11 @@ def main():
     print("{:^74}".format("*************************"))
     print("{:^74}".format("Playing Matches"))
     print("{:^74}".format("*************************"))
-    play_matches(cpu_agents, test_agents, NUM_MATCHES)
+    # play_matches(cpu_agents, test_agents, NUM_MATCHES)
+    for i in range(10):
+        random.seed()
+        print('\n===============\n')
+        play_matches(cpu_agents, test_agents, NUM_MATCHES)
 
 
 if __name__ == "__main__":
