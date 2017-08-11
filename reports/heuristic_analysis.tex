@@ -70,27 +70,29 @@
 
 %---------------- start of document body------------------
 
-The role of games in artificial intelligence is intriguing. In an article published by \citep{Economist2017}, they argued that there are several reasons for this connection.
+The role of games in artificial intelligence is intriguing. In an article published by \cite{Economist2017}, the author argued that there are several reasons for this connection. For example, many researchers use games as training grounds for real world problems. Others, observing that different games require different cognitive skills, think games can help them understand how the problem of intelligence may be broken down into smaller, more manageable chunks. Others still, building on these two observations, think games can help them develop a proper theory of artificial intelligence.
 
-For example, many researchers use games as training grounds for real world problems. Others, observing that different games require different cognitive skills, think games can help them understand how the problem of intelligence may be broken down into smaller, more manageable chunks. Others still, building on these two observations, think games can help them develop a proper theory of artificial intelligence.
-
-In this project, as stated by \cite{Udacity2017}, I had to develop an adversarial search agent to play the game "Isolation".  Isolation is a deterministic, two-player game of perfect information in which the players alternate turns moving a single piece from one cell to another on a board. Whenever either player occupies a cell, that cell becomes blocked for the remainder of the game. The first player with no remaining legal moves loses, and the opponent is declared the winner.
-
-% According to \cite{russelartificial}, games like this one have been engaging many AI researchers due to its abstract nature. The state of a game is easy to represent, and agents are usually restricted to a small number of actions whose outcomes are defined by precise rules. However, those games are often too hard to solve by a simple search. For instance, chess has a search tree with $35^{100}$ nodes.
+In this project, we also engaged in the game-playing domain. I implemented an adversarial search agent to play a game called "Isolation". As stated by \cite{Udacity2017}, Isolation is a deterministic, two-player game of perfect information in which the players alternate turns moving a single piece from one cell to another on a board. Whenever either player occupies a cell, that cell becomes blocked for the remainder of the game. The first player with no remaining legal moves loses, and the opponent is declared the winner.
 
 To solve this game, I have implemented two strategies: minimax algorithm and alpha-beta pruning. As explained by \cite{russelartificial}, the first one performs a complete depth-first exploration of the game tree and its time cost in real games can be impractical. The second one, alpha-beta pruning, ignores a portion of the search tree that makes no difference to the final choice. According to \cite{russelartificial}, when this technique is applied to standard minimax tree, it returns the same move as minimax would.
 
-However, alpha-beta still has to search all the way to terminal states for at least a portion of the search space. To cut off the search earlier and allow the agent created for this project makes decisions in a reasonable amount of time, I implemented some versions of a heuristic evaluation function, mostly based on the \strong{bla bla bla}. Evaluation functions estimate the expected utility of the game from a given position and are applyed to stated in the searchm effectively turning nonterminal nodes into terminal leaves.
+However, alpha-beta still has to search all the way to terminal states for at least a portion of the search space. To cut off the search earlier and allow the agent makes decisions in a reasonable amount of time, I implemented three different versions of a heuristic evaluation function, inspired in the \textit{improved\_score} and \textit{open\_move\_score} evolution functions, already implemented by Udacity. Evaluation functions estimate the expected utility of the game from a given position and are applied to states in the search,  turning non-terminal nodes into terminal leaves.
 
-% explains that heuristic evaluation functions allow us to approximate the true utility of a state without doing a complete search.
+% Udacity: At least three evaluation functions are implemented and analyzed.
 
-The first function implemented was...
+The first function implemented, called \textit{custom\_score3}, rewards the agent simply by the number of legal moves still available, as the \textit{open\_move\_score} function, and also gives an additional reward to the agent if it is in the center of the board. The idea is to motivate the agent to dominate the center when it is possible.
 
-wighted linear function
+The second function implemented, \textit{custom\_score2}, is a weighted linear function, where is given to the opponent's moves two times more relevance than the agent's moves. The motivation of this approach is to influence the agent to prioritize moves that minimize the moves from the opponent before maximize its moves.
 
-strongly correlated wirh the actual chances of winning
+Finally, the \textit{custom\_score} uses the same approach that the last function, given more emphasis to the opponents' moves. However, like the first function, this one also gives an additional reward when the agent moves to the center of the board. Thus, this function motivates the agent to minimize the moves from the opponent and also to dominate the center of the board.
+
+% strongly correlated wirh the actual chances of winning
+
+% Udacity: A brief report lists (using a table and any appropriate visualizations) and verbally describes the performance of agents using the implemented evaluation functions. Performance data includes results from tournament.py comparing (at a minimum) the best performing student heuristic against the ID_Improved agent.
 
 
+
+% Udacity: The report makes a recommendation about which evaluation function should be used and justifies the recommendation with at least three reasons supported by the data.
 
 
 
