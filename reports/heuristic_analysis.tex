@@ -12,6 +12,8 @@
 \usepackage{graphicx}
 \usepackage[colorinlistoftodos]{todonotes}
 \usepackage{hyperref}
+\usepackage{booktabs} % To thicken table lines
+\usepackage{tablefootnote}
 \usepackage{listings}
 % \usepackage[numbers]{natbib}
 
@@ -84,12 +86,39 @@ The first function implemented, called \textit{custom\_score3}, rewards the agen
 
 The second function implemented, \textit{custom\_score2}, is a weighted linear function, where is given to the opponent's moves two times more relevance than the agent's moves. The motivation of this approach is to influence the agent to prioritize moves that minimize the moves from the opponent before maximize its moves.
 
-Finally, the \textit{custom\_score} uses the same approach that the last function, given more emphasis to the opponents' moves. However, like the first function, this one also gives an additional reward when the agent moves to the center of the board. Thus, this function motivates the agent to minimize the moves from the opponent and also to dominate the center of the board.
+Finally, the \textit{custom\_score} uses the same approach that the last function, giving more emphasis to the opponents' moves. However, like the first function, this one also gives an additional reward when the agent moves to the center of the board. Thus, this function motivates the agent to minimize the moves from the opponent and also to dominate the center of the board.
 
 % strongly correlated wirh the actual chances of winning
 
 % Udacity: A brief report lists (using a table and any appropriate visualizations) and verbally describes the performance of agents using the implemented evaluation functions. Performance data includes results from tournament.py comparing (at a minimum) the best performing student heuristic against the ID_Improved agent.
 
+....
+
+To test these functions, I performed ten tests with ten matches each, using \textit{tournament.py}. Then, I compared the permorfance of the agent using each heuristic to the performance of an agent using the heuristic \textit{improved\_score} using a Welch's unequal variances t-test.
+
+
+
+
+The table \ref{tab:results} presents an example of the result from an turnment.
+
+\begin{table}[ht!]
+\centering
+\begin{tabular}{l|cccc}
+{agent / heuristic} &    AB\_Improved &    AB\_Custom &    AB\_Custom\_2 &    AB\_Custom\_3 \\
+\midrule
+Random &  95\% &  100\% &  90\% &    90\% \\
+MM\_Open &  75\% &  80\% &  65\% &  60\% \\
+MM\_Center &  75\% &  90\% &  90\% &  75\% \\
+MM\_Improved &    70\% &  65\% &  75\% &  80\% \\
+AB\_Open &    45\% &  60\% &  60\% &  50\% \\
+AB\_Center &    50\% &  65\% &  50\% &  40\% \\
+AB\_Improved &    40\% &  45\% &  55\% &  45\% \\
+
+\end{tabular}
+\caption{\label{tab:results}Output example from \textit{tournament.py} }
+\end{table}
+
+A Welch's unequal variances t-test was conducted to compare if the PnL of the learner was greater than the PnL of a random agent. There was a significant difference between the performances (t-value $\approx 7.93$;  p-value $< 0.000$). These results suggest that the functoin that really outperformed the benchmark was ...
 
 
 % Udacity: The report makes a recommendation about which evaluation function should be used and justifies the recommendation with at least three reasons supported by the data.
