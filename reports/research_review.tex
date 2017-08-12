@@ -12,6 +12,8 @@
 \usepackage{graphicx}
 \usepackage[colorinlistoftodos]{todonotes}
 \usepackage{hyperref}
+\usepackage{booktabs} % To thicken table lines
+\usepackage{tablefootnote}
 \usepackage{listings}
 % \usepackage[numbers]{natbib}
 
@@ -46,7 +48,7 @@
 
 % enter your details here----------------------------------
 
-\lhead{\normalsize \textrm{Build a Game-Playing Agent - Research Reviewed}}
+\lhead{\normalsize \textrm{Build a Game-Playing Agent - Research Review}}
 \chead{}
 \rhead{\normalsize August 8, 2017}
 \lfoot{\normalsize \textrm{AIND - Udacity}}
@@ -64,16 +66,20 @@
 
 \begin{center}
 
-{\bf \large Mastering the Game of Go With Neural Network and Tree Search \\ \small Uirá Caiado}
+{\bf \large Review of the DeepMind's paper about AlphaGo \\ \small Uirá Caiado}
 \end{center}
 
 
 %---------------- start of document body------------------
-Bla bla bla Bla bla bla Bla bla bla Bla bla bla Bla bla bla Bla bla bla Bla bla bla Bla bla bla Bla bla bla Bla bla blaBla bla bla Bla bla bla Bla bla bla Bla bla bla.
 
-Bla bla bla Bla bla bla Bla bla bla Bla bla bla Bla bla bla Bla bla bla Bla bla bla Bla bla bla Bla bla bla Bla bla blaBla bla bla Bla bla bla Bla bla bla Bla bla bla
+% The write up is approximately 1 page (500 words) and includes a summary of the paper (including new techniques introduced), and the key results (if any) that were achieved.
 
-Bla bla bla Bla bla bla Bla bla bla Bla bla bla Bla bla bla Bla bla bla Bla bla bla Bla bla bla Bla bla bla Bla bla blaBla bla bla Bla bla bla Bla bla bla Bla bla bla \cite{Silver:2016hl}
+In 2016, the DeepMind's AlphaGo defeated Lee Sedol, one of the world’s best players of Go. This ancient game is a board game so complex that computers had not been expected to master it for another decade at least, according to \cite{Economist2017a}. In their paper "Mastering the Game of Go With Neural Network and Tree Search", \cite{Silver:2016hl} described the technical details of the system.
+
+As explained in the Deepmind's blog post\footnote{Source: \url{https://deepmind.com/research/alphago/}} about the computer program, due to the enormous search space of Go, traditional AI methods, which construct a search tree over all possible positions, are not suited to this board game.
+
+
+
 
 
 
