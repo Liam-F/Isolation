@@ -92,14 +92,6 @@ Finally, the \textit{custom\_score} uses the same approach that the last functio
 
 % Udacity: A brief report lists (using a table and any appropriate visualizations) and verbally describes the performance of agents using the implemented evaluation functions. Performance data includes results from tournament.py comparing (at a minimum) the best performing student heuristic against the ID_Improved agent.
 
-....
-
-To test these functions, I performed ten tests with ten matches each, using \textit{tournament.py}. Then, I compared the permorfance of the agent using each heuristic to the performance of an agent using the heuristic \textit{improved\_score} using a Welch's unequal variances t-test.
-
-
-
-
-The table \ref{tab:results} presents an example of the result from an turnment.
 
 \begin{table}[ht!]
 \centering
@@ -118,10 +110,17 @@ AB\_Improved &    40\% &  45\% &  55\% &  45\% \\
 \caption{\label{tab:results}Output example from \textit{tournament.py} }
 \end{table}
 
-A Welch's unequal variances t-test was conducted to compare if the PnL of the learner was greater than the PnL of a random agent. There was a significant difference between the performances (t-value $\approx 7.93$;  p-value $< 0.000$). These results suggest that the functoin that really outperformed the benchmark was ...
+
+To test these functions, I performed ten tests with ten matches each, using \textit{tournament.py}. The table \ref{tab:results} presents an example of the result from a tournament. Then, I compared the performance of the agent using each heuristic created to the performance of an agent using the heuristic \textit{improved\_score} . To do so, I used a one-sided Welch's unequal variances t-test\footnote{Source: \url{https://goo.gl/Je2ZLP}} for the null hypothesis that the agent using custom heuristic has the expected win rate greater than the performance of an agent using the benchmark heuristic. As the implementation of the t-test in the Scipy\footnote{Source: \url{https://goo.gl/gs222c}} assumes a two-sided t-test, to perform the one-sided test, we have to divide the p-value by $2$ to compare to a critical value of $0.05$ and require that the t-value be greater than zero.
 
 
 % Udacity: The report makes a recommendation about which evaluation function should be used and justifies the recommendation with at least three reasons supported by the data.
+
+There was not a significant difference between the performances of the agent using the custom heuristics. The best one was the performance of the \textit{AB\_Custom} (t-value $\approx 0.97$;  p-value $< 0.173$). Even though this agent was able to beat the benchmark in $7$ of the $10$ tests performed, its performance was not significantly superior to the agent \textit{AB\_Improved}, as suggested by the hypothesis test.
+
+The agent \textit{AB\_Custom\_2} performed worst (t-value $\approx 0.29$;  p-value $< 0.386$), beating the benchmark in $5$ of the $10$ tests performed and \textit{AB\_Custom\_3} was significantly worst than the agent \textit{AB\_Improved} (t-value $\approx -3.04$;  p-value $< 0.004$).
+
+Based on these results, I recommend to use the function \textit{custom\_score}. Even though the agent that have used this function was not able to play much better than the \textit{AB\_Improved}, it still won 70\% of the tournaments.
 
 
 
